@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jorge Pineda | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Root & Reset ---------- */
+    :root {
+      --bg: #f3f4f6;
+      --text: #1a1a1a;
+      --accent: #0077b6;
+      --accent-light: #0096c7;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition: 0.3s ease;
+      --sidebar-width: 240px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", sans-serif;
+      display: flex;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ---------- Sidebar ---------- */
+    aside {
+      width: var(--sidebar-width);
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      position: fixed;
+      height: 100%;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    nav a {
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+    nav a:hover::after,
+    nav a.active::after { width: 100%; }
+    .social {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* ---------- Main Content ---------- */
+    main {
+      margin-left: var(--sidebar-width);
+      overflow-y: auto;
+      flex: 1;
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
+    section {
+      /* Removed forced full-height to reduce empty space */
+      padding: 2rem 3rem;
+      scroll-snap-align: start;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Removed fixed height so it fits content */
+      max-width: 800px;
+      margin: 2rem auto;
+      gap: 1rem;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+    }
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+    /* ---------- About ---------- */
+    #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* ---------- Projects Grid ---------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .project-content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .project-content h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    /* ---------- Skills & Languages ---------- */
+    .skills-list, #languages ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      list-style: none;
+    }
+    .skills-list span, #languages li {
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Contact ---------- */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition);
+    }
+    .contact-links a:hover { color: var(--accent); }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      padding: 2rem 3rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="logo">Jorge Pineda</div>
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#languages">Languages</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="social">
+      <a href="https://linkedin.com/in/jorgeigpineda" target="_blank">💼 LinkedIn</a>
+      <a href="https://github.com/jorgeigpineda" target="_blank">🐙 GitHub</a>
+    </div>
+  </aside>
+
+  <main>
+    <section id="home" class="hero">
+      <h1><span class="typewriter"></span></h1>
+      <p>Software & Machine Learning Engineer blending deep technical expertise with business insight. Specializing in scalable computer vision pipelines, automation workflows, and data-driven product development.</p>
+      <a href="Jorge-Pineda-SOFTWARE  MACHINE-LEARNING ENGINEER  B.B.A. CANDIDATE 2025   (2).pdf" class="btn" target="_blank">Download Resume</a>
+    </section>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>As a senior at Clarke University pursuing a B.A. in Computer Science with a minor in Business Administration, I bring a unique blend of technical skill and strategic thinking. My projects—from marine-species object detection using TensorFlow to low-code automation flows in Power Automate—demonstrate my ability to translate complex requirements into efficient, real-world solutions.
+
+        Originally from Roatán, Honduras, I am bilingual in English and Spanish and thrive in collaborative, diverse environments. Outside of coding, I enjoy robotics, soccer, and continuous learning in AI and product design.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="dinosaur.png" alt="Marine Megafauna Object Detection" />
+          <div class="project-content">
+            <h3>Dinosaur Species Image Classifier</h3>
+            <p>Fine-tuned an ImageNet-pretrained EfficientNetB0 on a 3 000-image dataset of 15 dinosaur species, employing real-time
+                augmentation (flips, rotations, color jitters) to boost generalization.
+                
+                Achieved 82% test accuracy (7 % above a ResNet-50 baseline) and packaged the model as a TensorFlow Serving endpoint for
+                rapid, scalable inference.
+                </p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="medal prediction.png" alt="Olympic Medal Prediction" />
+          <div class="project-content">
+            <h3>Olympic Medal Prediction</h3>
+            <p>Engineered nation-level features; Gradient-Boosting model reached 85% accuracy on a 2016-style hold-out set.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="icy dash.png" alt="3-D Obstacle-Course Game" />
+          <div class="project-content">
+            <h3>3-D Obstacle-Course Game</h3>
+            <p>Designed levels and scripted physics in Unity/C#; demo published with 150+ downloads.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="flow.png" alt="Academic-Affairs Flow Automation" />
+          <div class="project-content">
+            <h3>Academic-Affairs Flow Automation</h3>
+            <p>Built Power Automate workflows to convert & route PDFs, cutting manual email steps by ~40%.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>Python</li><li>TensorFlow</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li>
+        <li>Machine Learning</li><li>Deep Learning</li><li>Data Analysis</li><li>Neural Networks</li><li>NLP</li>
+        <li>SQL</li><li>Git/GitHub</li><li>Power Automate</li><li>Unity</li><li>Agile Mindset</li>
+      </ul>
+    </section>
+
+    <section id="languages">
+      <h2>Languages</h2>
+      <ul>
+        <li>🇪🇸 Spanish (Native)</li>
+        <li>🇺🇸 English (Native)</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-links">
+        <a href="mailto:jorgeigpineda1@gmail.com">📧 Email</a>
+        <a href="tel:3057647990">📞 Phone</a>
+        <a href="https://linkedin.com/in/jorgeigpineda" target="_blank">💼 LinkedIn</a>
+        <a href="https://github.com/jorgeigpineda" target="_blank">🐙 GitHub</a>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Jorge Pineda — Built with ❤️ & code
+    </footer>
+  </main>
+
+  <script>
+    // Typewriter Effect (faster)
+    const texts = ["Software Engineer", "Machine-Learning Enthusiast", "Data-Driven Problem Solver"];
+    let count = 0, index = 0, current = '', letter = '';
+    (function type() {
+      if (count === texts.length) count = 0;
+      current = texts[count];
+      letter = current.slice(0, ++index);
+      document.querySelector('.typewriter').textContent = letter;
+      if (letter.length === current.length) {
+        count++;
+        index = 0;
+        setTimeout(type, 500);
+      } else {
+        setTimeout(type, 100);
+      }
+    }());
+
+    // Scroll-Spy active link
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('aside nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id));
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
+
